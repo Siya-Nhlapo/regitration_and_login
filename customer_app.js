@@ -3,7 +3,7 @@ const mongoose = require('mongoose');            // MongoDB ODM library
 const Customers = require('./customer');         // Imported MongoDB model for 'customers'
 const express = require('express');              // Express.js web framework
 const session = require('express-session');      // Middleware for managing user sessions
-const { v4: uuidv4 } = require('uuid');          // Library for generating unique identifiers (UUIDs)
+const { randomUUID } = require('crypto');         // Node.js built-in UUID generator
 const bodyParser = require('body-parser');       // Middleware for parsing JSON requests
 const { ValidationError, InvalidUserError, AuthenticationFailed } = require('./errors/CustomError'); // Custom error classes for handling specific error scenarios
 const path = require('path');                    // Node.js path module for working with file and directory paths
@@ -26,14 +26,14 @@ app.use(session({
     secret: 'itsmysecret', // Secret key for signing the session ID cookie
     resave: false, // Forces the session to be saved back to the session store, even if it was never modified during the request
     saveUninitialized: true, // Forces a session that is "uninitialized" to be saved to the store. A session is uninitialized when it is new but not modified
-    genid: () => uuidv4() // Generates a unique session ID using the uuid library
+    genid: () => randomUUID() // Generates a unique session ID synchronously
 }));
 
 // Setting the port number for the server
 const port = 3001;
 
 // MongoDB connection URI and database name
-const uri = process.env.MONGODB_URI;
+const uri = process.env.MONGODB_URI_TEST;
 
 if (!uri) {
     console.error('MONGODB_URI is missing. Set it in your .env file before starting the app.');
