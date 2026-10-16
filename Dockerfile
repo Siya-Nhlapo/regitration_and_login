@@ -17,3 +17,4 @@ EXPOSE 3001
 
 # CMD to run the application
 CMD ["node", "customer_app.js"]
+

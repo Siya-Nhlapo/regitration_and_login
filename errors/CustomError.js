@@ -50,3 +50,4 @@ class AuthenticationFailed extends Error {
 }
 
 module.exports = { ValidationError, InvalidUserError, AuthenticationFailed };
+
